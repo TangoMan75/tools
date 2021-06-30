@@ -21,30 +21,30 @@
 # * background: {40..47}
 # * high intensity background: {100..107}
 # *
-# * @licence MIT
 # * @author  "Matthias Morin" <mat@tangoman.io>
+# * @link    https://github.com/TangoMan75/tools
 # */
 
 ## Print color range table
 function print_colors() {
-    for FOREGROUND in {30..37} {90..97}; do
-        for ATTR in 0 1 4; do
-            for BACKGROUND in 0 {40..47} {100..107}; do
-                if [ "${BACKGROUND}" -eq 0 ] && [ "${ATTR}" -eq 0 ]; then
-                    echo -en "\033[${FOREGROUND}m" 
-                    printf "%11s" "[${FOREGROUND}m "
+    for foreground in {30..37} {90..97}; do
+        for attr in 0 1 4; do
+            for background in 0 {40..47} {100..107}; do
+                if [ "${background}" -eq 0 ] && [ "${attr}" -eq 0 ]; then
+                    echo -en "\033[${foreground}m" 
+                    printf "%11s" "[${foreground}m "
                     echo -en "\033[0m"
-                elif [ "${ATTR}" -eq 0 ]; then
-                    echo -en "\033[${BACKGROUND};${FOREGROUND}m" 
-                    printf "%11s" "[${BACKGROUND};${FOREGROUND}m "
+                elif [ "${attr}" -eq 0 ]; then
+                    echo -en "\033[${background};${foreground}m" 
+                    printf "%11s" "[${background};${foreground}m "
                     echo -en "\033[0m"
-                elif [ "${BACKGROUND}" -eq 0 ]; then
-                    echo -en "\033[${ATTR};${FOREGROUND}m" 
-                    printf "%11s" "[${ATTR};${FOREGROUND}m "
+                elif [ "${background}" -eq 0 ]; then
+                    echo -en "\033[${attr};${foreground}m" 
+                    printf "%11s" "[${attr};${foreground}m "
                     echo -en "\033[0m"
                 else
-                    echo -en "\033[$ATTR;${BACKGROUND};${FOREGROUND}m" 
-                    printf "%11s" "[${ATTR};${BACKGROUND};${FOREGROUND}m "
+                    echo -en "\033[$attr;${background};${foreground}m" 
+                    printf "%11s" "[${attr};${background};${foreground}m "
                     echo -en "\033[0m"
                 fi
             done

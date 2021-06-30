@@ -18,7 +18,7 @@
 #     assert_not_equals "a string" "a string" "a string should be different from another string"
 #     fake ps echo hello world
 
-src_file="../src/colors/colors_v6.sh"
+src_file="../src/colors/colors_a.sh"
 
 # shellcheck source=/dev/null
 . "${src_file}"
@@ -69,12 +69,17 @@ test_echo_dark_should_return_expected_string() {
 
 test_echo_label_should_return_expected_string() {
     assert_status_code 127 "$(echo_label 10 foobar)"
-    assert_equals "$(printf '\033[32m%-*b \033[0m' 10 foobar)" "$(echo_label 10 foobar)"
+    assert_equals "$(printf '\033[32m%-10s \033[0m' foobar)" "$(echo_label 10 foobar)"
+}
+
+test_echo_label_without_padding_should_return_expected_string() {
+    assert_status_code 127 "$(echo_label foobar)"
+    assert_equals "$(printf '\033[32m%b \033[0m' foobar)" "$(echo_label foobar)"
 }
 
 test_echo_error_should_return_expected_string() {
     assert_status_code 127 "$(echo_error foobar)"
-    assert_equals "$(printf '\033[1;31merror:\t\033[0;91m%s\033[0m' foobar)" "$(echo_error foobar)"
+    assert_equals "$(printf '\033[31merror: %b\033[0m' foobar)" "$(echo_error foobar)"
 }
 
 test_alert_primary_should_return_expected_string() {

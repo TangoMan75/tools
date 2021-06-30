@@ -18,7 +18,7 @@
 #     assert_not_equals "a string" "a string" "a string should be different from another string"
 #     fake ps echo hello world
 
-src_file="../src/colors/colors_v7b.sh"
+src_file="../src/colors/colors_sfa.sh"
 
 # shellcheck source=/dev/null
 . "${src_file}"
@@ -84,40 +84,40 @@ test_echo_error_should_return_expected_string() {
 
 test_alert_primary_should_return_expected_string() {
     assert_status_code 127 "$(alert_primary)"
-    assert_equals "$(printf "\033[0m\n\033[1;104;97m%64s\033[0m\n\033[1;104;97m %-63s\033[0m\n\033[1;104;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_primary foobar)"
+    assert_equals "$(printf "\033[0m\n\033[104;37m%64s\033[0m\n\033[104;37m %-63s\033[0m\n\033[104;37m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_primary foobar)"
 }
 
 test_alert_secondary_should_return_expected_string() {
     assert_status_code 127 "$(alert_secondary)"
-    assert_equals "$(printf "\033[0m\n\033[1;45;97m%64s\033[0m\n\033[1;45;97m %-63s\033[0m\n\033[1;45;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_secondary foobar)"
+    assert_equals "$(printf "\033[0m\n\033[45;37m%64s\033[0m\n\033[45;37m %-63s\033[0m\n\033[45;37m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_secondary foobar)"
 }
 
 test_alert_success_should_return_expected_string() {
     assert_status_code 127 "$(alert_success)"
-    assert_equals "$(printf "\033[0m\n\033[1;42;97m%64s\033[0m\n\033[1;42;97m %-63s\033[0m\n\033[1;42;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_success foobar)"
+    assert_equals "$(printf "\033[0m\n\033[42;30m%64s\033[0m\n\033[42;30m %-63s\033[0m\n\033[42;30m%64s\033[0m\n\n" '' "[OK] foobar" '';)" "$(alert_success foobar)"
 }
 
 test_alert_danger_should_return_expected_string() {
     assert_status_code 127 "$(alert_danger)"
-    assert_equals "$(printf "\033[0m\n\033[1;41;97m%64s\033[0m\n\033[1;41;97m %-63s\033[0m\n\033[1;41;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_danger foobar)"
+    assert_equals "$(printf "\033[0m\n\033[41;37m %-63s\033[0m\n\033[41;37m %-63s\033[0m\n\033[41;37m %-63s\033[0m\n\n" '!' "! [ERROR] foobar" '!';)" "$(alert_danger foobar)"
 }
 
 test_alert_warning_should_return_expected_string() {
     assert_status_code 127 "$(alert_warning)"
-    assert_equals "$(printf "\033[0m\n\033[1;43;97m%64s\033[0m\n\033[1;43;97m %-63s\033[0m\n\033[1;43;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_warning foobar)"
+    assert_equals "$(printf "\033[0m\n\033[43;30m%64s\033[0m\n\033[43;30m %-63s\033[0m\n\033[43;30m%64s\033[0m\n\n" '' "[WARNING] foobar" '';)" "$(alert_warning foobar)"
 }
 
 test_alert_info_should_return_expected_string() {
     assert_status_code 127 "$(alert_info)"
-    assert_equals "$(printf "\033[0m\n\033[1;44;97m%64s\033[0m\n\033[1;44;97m %-63s\033[0m\n\033[1;44;97m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_info foobar)"
+    assert_equals "$(printf "\033[0m\n\033[44;37m%64s\033[0m\n\033[44;37m %-63s\033[0m\n\033[44;37m%64s\033[0m\n\n" '' "[INFO] foobar" '';)" "$(alert_info foobar)"
 }
 
 test_alert_light_should_return_expected_string() {
     assert_status_code 127 "$(alert_light)"
-    assert_equals "$(printf "\033[0m\n\033[1;47;90m%64s\033[0m\n\033[1;47;90m %-63s\033[0m\n\033[1;47;90m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_light foobar)"
+    assert_equals "$(printf "\033[0m\n\033[47;90m%64s\033[0m\n\033[47;90m %-63s\033[0m\n\033[47;90m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_light foobar)"
 }
 
 test_alert_dark_should_return_expected_string() {
     assert_status_code 127 "$(alert_dark)"
-    assert_equals "$(printf "\033[0m\n\033[1;40;37m%64s\033[0m\n\033[1;40;37m %-63s\033[0m\n\033[1;40;37m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_dark foobar)"
+    assert_equals "$(printf "\033[0m\n\033[40;37m%64s\033[0m\n\033[40;37m %-63s\033[0m\n\033[40;37m%64s\033[0m\n\n" '' "foobar" '';)" "$(alert_dark foobar)"
 }

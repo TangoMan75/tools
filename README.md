@@ -9,6 +9,8 @@
 TangoMan Bash Tool
 ==================
 
+![tools](./doc/images/tools.png)
+
 **TangoMan Bash Tools** is an awesome collection of small useful shell scripts.
 
 ⏳ TL;DR
@@ -35,7 +37,7 @@ echo_info "Hello World !"
 
 A semantic set of colors for shell scripts.
 
-![colors](./assets/print_colors.png)
+![print_colors](./doc/images/print_colors.png)
 
 Try this in your script :
 
@@ -55,11 +57,11 @@ echo_info      'This is an info        (95m)'
 echo_light     'This is light          (47;90m)'
 echo_dark      'This is dark           (40;37m)'
 echo
-echo_label     9 'label (32m):'; echo_primary 'This is a label'
-echo_error     'This is an error (91m)'
+echo_label     "${PADDING}" 'label (32m):'; echo_primary 'This is a label'
+echo_error     'This is an error (31m)'
 ```
 
-![echo_colors](./assets/echo_colors.png)
+![echo_colors](./doc/images/echo_colors.png)
 
 ```bash
 #!/bin/bash
@@ -78,7 +80,17 @@ alert_light     'This is a light alert     (1;47;90m)'
 alert_dark      'This is a dark alert      (1;40;37m)'
 ```
 
-![alert_colors](./assets/alert_colors.png)
+![alert_colors](./doc/images/alert_colors.png)
+
+If you want to use Symfony theme for alerts use this file instead: `/tools/src/colors/colors_sf.sh`
+
+![alert_colors_sf](./doc/images/alert_colors_sf.png)
+
+📝 NOTE:
+- Version a is the same than default version without comments.
+- Version b is the same than default version with line feed at the end of each string.
+- Version c does not use variables (less clutter).
+- Version d is the same than version c with line feed at the end of each string.
 
 ### ⚡ get_latest_release.sh
 
@@ -96,7 +108,7 @@ Download file with either curl or wget.
 
 This script is meant to quickly check for common apps installation.
 
-![check_install](./assets/check_install.png)
+![check_install](./doc/images/check_install.png)
 
 ### ⚡ check_root.sh
 
@@ -162,10 +174,6 @@ CURDIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 # shellcheck source=/dev/null
 . "${CURDIR}"/tools/src/colors/colors.sh
 # shellcheck source=/dev/null
-. "${CURDIR}"/tools/src/colors/colors_sf.sh
-# shellcheck source=/dev/null
-. "${CURDIR}"/tools/src/colors/colors_v6.sh
-# shellcheck source=/dev/null
 . "${CURDIR}"/tools/src/git/get_latest_release.sh
 # shellcheck source=/dev/null
 . "${CURDIR}"/tools/src/git/get_latest_tag.sh
@@ -183,6 +191,8 @@ CURDIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 . "${CURDIR}"/tools/src/system/hosts.sh
 # shellcheck source=/dev/null
 . "${CURDIR}"/tools/src/system/is_installed.sh
+# shellcheck source=/dev/null
+. "${CURDIR}"/tools/src/system/is_root.sh
 # shellcheck source=/dev/null
 . "${CURDIR}"/tools/src/system/is_ubuntu.sh
 # shellcheck source=/dev/null

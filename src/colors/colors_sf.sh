@@ -10,67 +10,112 @@
 # */
 
 #/**
-# * TangoMan Colors
+# * TangoMan Symfony Colors
 # *
-# * A semantic set of colors for shell scripts inspired by Bootstrap and Symfony (minified)
+# * A semantic set of colors for shell scripts inspired by Bootstrap and Symfony
 # *
 # * @author  "Matthias Morin" <mat@tangoman.io>
-# * @licence MIT
 # * @link    https://github.com/TangoMan75/tools
-# * @version 6.0.0-sf
+# * @version 0.1.0-sf
 # */
 
+# shellcheck disable=SC2034
+{
+    PRIMARY='\033[97m'; SECONDARY='\033[94m'; SUCCESS='\033[32m'; DANGER='\033[31m'; WARNING='\033[33m'; INFO='\033[95m'; LIGHT='\033[47;90m'; DARK='\033[40;37m'; DEFAULT='\033[0m'; NL='\033[0m\n';
+    ALERT_PRIMARY='\033[104;37m'; ALERT_SECONDARY='\033[45;37m'; ALERT_SUCCESS='\033[42;30m'; ALERT_DANGER='\033[41;37m'; ALERT_WARNING='\033[43;30m'; ALERT_INFO='\033[44;37m'; ALERT_LIGHT='\033[47;90m'; ALERT_DARK='\033[40;37m';
+}
+
 ## Print primary (bright white text)
-echo_primary()   { printf '\033[97m%b\033[0m\n'    "${*}"; }
+echo_primary() {
+    printf "%b%b${NL}" "${PRIMARY}" "${*}"
+}
 
 ## Print secondary (bright blue text)
-echo_secondary() { printf '\033[94m%b\033[0m\n'    "${*}"; }
+echo_secondary() {
+    printf "%b%b${NL}" "${SECONDARY}" "${*}"
+}
 
-## Print success (green text)
-echo_success()   { printf '\033[32m%b\033[0m\n'    "${*}"; }
+## Print success (bright green text)
+echo_success() {
+    printf "%b%b${NL}" "${SUCCESS}" "${*}"
+}
 
 ## Print danger (red text)
-echo_danger()    { printf '\033[31m%b\033[0m\n'    "${*}"; }
+echo_danger() {
+    printf "%b%b${NL}" "${DANGER}" "${*}"
+}
 
 ## Print warning (orange text)
-echo_warning()   { printf '\033[33m%b\033[0m\n'    "${*}"; }
+echo_warning() {
+    printf "%b%b${NL}" "${WARNING}" "${*}"
+}
 
 ## Print info (bright purple text)
-echo_info()      { printf '\033[95m%b\033[0m\n'    "${*}"; }
+echo_info() {
+    printf "%b%b${NL}" "${INFO}" "${*}"
+}
 
 ## Print light (black text over white background)
-echo_light()     { printf '\033[47;90m%b\033[0m\n' "${*}"; }
+echo_light() {
+    printf "%b%b${NL}" "${LIGHT}" "${*}"
+}
 
 ## Print dark (white text over black background)
-echo_dark()      { printf '\033[40;37m%b\033[0m\n' "${*}"; }
+echo_dark() {
+    printf "%b%b${NL}" "${DARK}" "${*}"
+}
 
-## Print label (green text with padding, no carriage return)
-echo_label()     { printf '\033[32m%-*b \033[0m' "$1" "$2"; }
+## Print label (green text with optional padding, no carriage return)
+echo_label() {
+    if [ $# -eq 2 ]; then
+        printf "%b%-${1}s ${DEFAULT}" "${SUCCESS}" "$2";
+    else
+        printf "%b%b ${DEFAULT}" "${SUCCESS}" "${*}"
+    fi
+}
 
-## Print error (bright red text, prefixed with bold red 'error:')
-echo_error()     { printf '\033[1;31merror:\t\033[0;91m%s\033[0m\n' "${*}"; }
+## Print error (red text, prefixed 'error:')
+echo_error() {
+    printf "%berror: %b${NL}" "${DANGER}" "${*}";
+}
 
-## Print primary alert (bright white text over bright blue background)
-alert_primary()   { printf "\033[0m\n\033[104;97m%64s\033[0m\n\033[104;97m %-63s\033[0m\n\033[104;97m%64s\033[0m\n\n"  '' "${*}" ''; }
+## Print primary alert (white text over bright blue background)
+alert_primary() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_PRIMARY}" '' "${ALERT_PRIMARY}" "${*}" "${ALERT_PRIMARY}" ''
+}
 
 ## Print secondary alert (white text over bright purple background)
-alert_secondary() { printf "\033[0m\n\033[45;37m%64s\033[0m\n\033[45;37m %-63s\033[0m\n\033[45;37m%64s\033[0m\n\n"     '' "${*}" ''; }
+alert_secondary() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_SECONDARY}" '' "${ALERT_SECONDARY}" "${*}" "${ALERT_SECONDARY}" ''
+}
 
 ## Print success alert (black text over bright green background)
-alert_success()   { printf "\033[0m\n\033[42;30m%64s\033[0m\n\033[42;30m %-63s\033[0m\n\033[42;30m%64s\033[0m\n\n"     '' "[OK] ${*}" ''; }
+alert_success() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_SUCCESS}" '' "${ALERT_SUCCESS}" "[OK] ${*}" "${ALERT_SUCCESS}" ''
+}
 
 ## Print danger alert (white text over bright red background)
-alert_danger()    { printf "\033[0m\n\033[41;37m %-63s\033[0m\n\033[41;37m %-63s\033[0m\n\033[41;37m %-63s\033[0m\n\n" '!' "! [ERROR] ${*}" '!'; }
+alert_danger() {
+    printf "${NL}%b %-63s${NL}%b %-63s${NL}%b %-63s${NL}\n" "${ALERT_DANGER}" '!' "${ALERT_DANGER}" "! [ERROR] ${*}" "${ALERT_DANGER}" '!'
+}
 
 ## Print warning alert (white text over bright orange background)
-alert_warning()   { printf "\033[0m\n\033[43;30m%64s\033[0m\n\033[43;30m %-63s\033[0m\n\033[43;30m%64s\033[0m\n\n"      '' "[WARNING] ${*}" ''; }
+alert_warning() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_WARNING}" '' "${ALERT_WARNING}" "[WARNING] ${*}" "${ALERT_WARNING}" ''
+}
 
 ## Print info alert (white text over bright blue background)
-alert_info()      { printf "\033[0m\n\033[44;37m%64s\033[0m\n\033[44;37m %-63s\033[0m\n\033[44;37m%64s\033[0m\n\n"      '' "[INFO] ${*}" ''; }
+alert_info() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_INFO}" '' "${ALERT_INFO}" "[INFO] ${*}" "${ALERT_INFO}" ''
+}
 
 ## Print light alert (black text over white background)
-alert_light()     { printf "\033[0m\n\033[47;90m%64s\033[0m\n\033[47;90m %-63s\033[0m\n\033[47;90m%64s\033[0m\n\n"     '' "${*}" ''; }
+alert_light() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_LIGHT}" '' "${ALERT_LIGHT}" "${*}" "${ALERT_LIGHT}" ''
+}
 
 ## Print dark alert (white text over black background)
-alert_dark()      { printf "\033[0m\n\033[40;37m%64s\033[0m\n\033[40;37m %-63s\033[0m\n\033[40;37m%64s\033[0m\n\n"     '' "${*}" ''; }
+alert_dark() {
+    printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n" "${ALERT_DARK}" '' "${ALERT_DARK}" "${*}" "${ALERT_DARK}" ''
+}
 

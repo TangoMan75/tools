@@ -15,9 +15,8 @@
 # * A semantic set of colors for shell scripts inspired by Bootstrap and Symfony
 # *
 # * @author  "Matthias Morin" <mat@tangoman.io>
-# * @licence MIT
 # * @link    https://github.com/TangoMan75/tools
-# * @version 7.0.2-b
+# * @version 0.1.0-a
 # */
 
 # shellcheck disable=SC2034

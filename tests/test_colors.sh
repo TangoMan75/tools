@@ -18,7 +18,7 @@
 #     assert_not_equals "a string" "a string" "a string should be different from another string"
 #     fake ps echo hello world
 
-src_file="../src/colors/colors_v7c.sh"
+src_file="../src/colors/colors.sh"
 
 # shellcheck source=/dev/null
 . "${src_file}"

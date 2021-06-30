@@ -18,7 +18,7 @@
 #     assert_not_equals "a string" "a string" "a string should be different from another string"
 #     fake ps echo hello world
 
-src_file="../src/colors/colors_v7d.sh"
+src_file="../src/colors/colors_d.sh"
 
 # shellcheck source=/dev/null
 . "${src_file}"
@@ -29,7 +29,7 @@ test_script_execution_should_return_expected_status_code() {
 
 test_echo_primary_should_return_expected_string() {
     assert_status_code 127 "$(echo_primary foobar)"
-    assert_equals "$(printf '\033[97m%b\033[0m\n' foobar)" "$(echo_primary foobar)"
+    assert_equals "$(printf '\033[97m%b\033[0m' foobar)" "$(echo_primary foobar)"
 }
 
 test_echo_secondary_should_return_expected_string() {
@@ -39,32 +39,32 @@ test_echo_secondary_should_return_expected_string() {
 
 test_echo_success_should_return_expected_string() {
     assert_status_code 127 "$(echo_success foobar)"
-    assert_equals "$(printf '\033[32m%b\033[0m\n' foobar)" "$(echo_success foobar)"
+    assert_equals "$(printf '\033[32m%b\033[0m' foobar)" "$(echo_success foobar)"
 }
 
 test_echo_danger_should_return_expected_string() {
     assert_status_code 127 "$(echo_danger foobar)"
-    assert_equals "$(printf '\033[31m%b\033[0m\n' foobar)" "$(echo_danger foobar)"
+    assert_equals "$(printf '\033[31m%b\033[0m' foobar)" "$(echo_danger foobar)"
 }
 
 test_echo_warning_should_return_expected_string() {
     assert_status_code 127 "$(echo_warning foobar)"
-    assert_equals "$(printf '\033[33m%b\033[0m\n' foobar)" "$(echo_warning foobar)"
+    assert_equals "$(printf '\033[33m%b\033[0m' foobar)" "$(echo_warning foobar)"
 }
 
 test_echo_info_should_return_expected_string() {
     assert_status_code 127 "$(echo_info foobar)"
-    assert_equals "$(printf '\033[95m%b\033[0m\n' foobar)" "$(echo_info foobar)"
+    assert_equals "$(printf '\033[95m%b\033[0m' foobar)" "$(echo_info foobar)"
 }
 
 test_echo_light_should_return_expected_string() {
     assert_status_code 127 "$(echo_light foobar)"
-    assert_equals "$(printf '\033[47;90m%b\033[0m\n' foobar)" "$(echo_light foobar)"
+    assert_equals "$(printf '\033[47;90m%b\033[0m' foobar)" "$(echo_light foobar)"
 }
 
 test_echo_dark_should_return_expected_string() {
     assert_status_code 127 "$(echo_dark foobar)"
-    assert_equals "$(printf '\033[40;37m%b\033[0m\n' foobar)" "$(echo_dark foobar)"
+    assert_equals "$(printf '\033[40;37m%b\033[0m' foobar)" "$(echo_dark foobar)"
 }
 
 test_echo_label_should_return_expected_string() {
@@ -79,7 +79,7 @@ test_echo_label_without_padding_should_return_expected_string() {
 
 test_echo_error_should_return_expected_string() {
     assert_status_code 127 "$(echo_error foobar)"
-    assert_equals "$(printf '\033[31merror: %b\033[0m\n' foobar)" "$(echo_error foobar)"
+    assert_equals "$(printf '\033[31merror: %b\033[0m' foobar)" "$(echo_error foobar)"
 }
 
 test_alert_primary_should_return_expected_string() {

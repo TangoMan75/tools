@@ -16,7 +16,7 @@
 # *
 # * @author  "Matthias Morin" <mat@tangoman.io>
 # * @link    https://github.com/TangoMan75/tools
-# * @version 0.1.0-sfb
+# * @version 0.1.0-sfa
 # */
 
 # shellcheck disable=SC2034
@@ -25,17 +25,17 @@
     ALERT_PRIMARY='\033[104;37m'; ALERT_SECONDARY='\033[45;37m'; ALERT_SUCCESS='\033[42;30m'; ALERT_DANGER='\033[41;37m'; ALERT_WARNING='\033[43;30m'; ALERT_INFO='\033[44;37m'; ALERT_LIGHT='\033[47;90m'; ALERT_DARK='\033[40;37m';
 }
 
-echo_primary()   { printf "%b%b${DEFAULT}" "${PRIMARY}"   "${*}"; }
-echo_secondary() { printf "%b%b${DEFAULT}" "${SECONDARY}" "${*}"; }
-echo_success()   { printf "%b%b${DEFAULT}" "${SUCCESS}"   "${*}"; }
-echo_danger()    { printf "%b%b${DEFAULT}" "${DANGER}"    "${*}"; }
-echo_warning()   { printf "%b%b${DEFAULT}" "${WARNING}"   "${*}"; }
-echo_info()      { printf "%b%b${DEFAULT}" "${INFO}"      "${*}"; }
-echo_light()     { printf "%b%b${DEFAULT}" "${LIGHT}"     "${*}"; }
-echo_dark()      { printf "%b%b${DEFAULT}" "${DARK}"      "${*}"; }
+echo_primary()   { printf "%b%b${NL}" "${PRIMARY}"   "${*}"; }
+echo_secondary() { printf "%b%b${NL}" "${SECONDARY}" "${*}"; }
+echo_success()   { printf "%b%b${NL}" "${SUCCESS}"   "${*}"; }
+echo_danger()    { printf "%b%b${NL}" "${DANGER}"    "${*}"; }
+echo_warning()   { printf "%b%b${NL}" "${WARNING}"   "${*}"; }
+echo_info()      { printf "%b%b${NL}" "${INFO}"      "${*}"; }
+echo_light()     { printf "%b%b${NL}" "${LIGHT}"     "${*}"; }
+echo_dark()      { printf "%b%b${NL}" "${DARK}"      "${*}"; }
 
 echo_label()     { if [ $# -eq 2 ]; then printf "%b%-${1}s ${DEFAULT}" "${SUCCESS}" "$2"; else printf "%b%b ${DEFAULT}" "${SUCCESS}" "${*}"; fi }
-echo_error()     { printf "%berror: %b${DEFAULT}" "${DANGER}"  "${*}"; }
+echo_error()     { printf "%berror: %b${NL}" "${DANGER}"  "${*}"; }
 
 alert_primary()   { printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n"     "${ALERT_PRIMARY}"   ''  "${ALERT_PRIMARY}"   "${*}"            "${ALERT_PRIMARY}"   '' ; }
 alert_secondary() { printf "${NL}%b%64s${NL}%b %-63s${NL}%b%64s${NL}\n"     "${ALERT_SECONDARY}" ''  "${ALERT_SECONDARY}" "${*}"            "${ALERT_SECONDARY}" '' ; }

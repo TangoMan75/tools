@@ -15,7 +15,6 @@
 # * A demo to test colors
 # *
 # * @author  "Matthias Morin" <mat@tangoman.io>
-# * @licence MIT
 # * @link    https://github.com/TangoMan75/tools
 # */
 
@@ -23,20 +22,7 @@ CURDIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 # shellcheck source=/dev/null
 . "${CURDIR}/colors_sf.sh"
 
-padding=9
-
-function help() {
-    alert_secondary 'Symfony Colors'
-    echo_warning  "$(basename "$0" .sh)"
-    echo_primary '  A semantic set of colors for shell scripts inspired by Bootstrap and Symfony'
-    echo
-    echo_warning  'Description'
-    echo_label   "${padding}" "  ${FUNCNAME[0]}"; echo_primary 'Print help message'
-    echo_label   "${padding}" '  command';        echo_primary 'This command does nothing'
-    echo_label   "${padding}" '  foo';            echo_primary 'This command does foo'
-    echo_label   "${padding}" '  bar';            echo_primary 'This command does bar'
-    echo
-}
+PADDING=9
 
 function demo_echo() {
     echo_primary   'This is primary text   (97m)'
@@ -48,13 +34,13 @@ function demo_echo() {
     echo_light     'This is light          (47;90m)'
     echo_dark      'This is dark           (40;37m)'
     echo
-    echo_label     "${padding}" 'label (32m):'; echo_primary 'This is a label'
-    echo_error     '(1;31m) This is an error (91m)'
+    echo_label     "${PADDING}" 'label (32m):'; echo_primary 'This is a label'
+    echo_error     'This is an error (31m)'
     echo
 }
 
 function demo_alert() {
-    alert_primary   'This is a primary alert   (104;97m)'
+    alert_primary   'This is a primary alert   (104;37m)'
     alert_secondary 'This is a secondary alert (45;37m)'
     alert_success   'This is a success alert   (42;30m)'
     alert_danger    'This is a danger alert    (41;37m)'
@@ -64,7 +50,6 @@ function demo_alert() {
     alert_dark      'This is a dark alert      (40;37m)'
 }
 
-help
 demo_echo
 demo_alert
 
