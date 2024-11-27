@@ -35,12 +35,12 @@ function prompt_user() {
                 b) BOOLEAN=true;;
                 y) YES_NO=true;;
                 h) echo_warning 'promt_user'
-                    echo_label 'description:'; echo_primary 'Prompt user for parameter value'
-                    echo_label 'usage'; echo_primary 'promt_user [parameter] -b (boolean) -y (yes no) -d [default_value] -h (help)'
+                    echo_success 'description:' 2 14; echo_primary 'Prompt user for parameter value\n'
+                    echo_success 'usage' 2 14; echo_primary 'promt_user [parameter] -b (boolean) -y (yes no) -d [default_value] -h (help)\n'
                     return 0;;
-                :) echo_error "\"${OPTARG}\" requires value"
+                :) echo_danger "error: \"${OPTARG}\" requires value\n"
                     return 1;;
-                \?) echo_error "invalid option \"${OPTARG}\""
+                \?) echo_danger "error: invalid option \"${OPTARG}\"\n"
                     return 1;;
             esac
         done
@@ -54,14 +54,14 @@ function prompt_user() {
     done
 
     if [ "${#ARGUMENTS[@]}" -eq 0 ]; then
-        echo_error 'some mandatory parameter is missing'
-        echo_label 'usage'; echo_primary 'promt_user [parameter] -b (boolean) -y (yes no) -d [default_value] -h (help)'
+        echo_danger 'error: some mandatory parameter is missing\n' 2
+        echo_success 'usage' 2 7; echo_primary 'promt_user [parameter] -b (boolean) -y (yes no) -d [default_value] -h (help)\n'
         return 1
     fi
 
     if [ "${#ARGUMENTS[@]}" -gt 1 ]; then
-        echo_error "too many arguments (${#ARGUMENTS[@]})"
-        echo_label 'usage'; echo_primary 'promt_user [parameter] -d [default_value] -h (help)'
+        echo_danger "error: too many arguments (${#ARGUMENTS[@]})\n" 2
+        echo_success 'usage' 2 7; echo_primary 'promt_user [parameter] -d [default_value] -h (help)\n'
         return 1
     fi
 

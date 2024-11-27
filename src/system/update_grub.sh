@@ -21,22 +21,22 @@
 ## Updates GRUB on multiple patforms
 function update_grub() {
     # Update grub config
-    echo_primary 'Updating grub config...'
+    echo_primary 'Updating grub config...\n'
     if [ -x "$(command -v update-grub)" ]; then
-        echo_info 'update-grub'
+        echo_info 'update-grub\n'
         update-grub
 
     elif [ -x "$(command -v grub-mkconfig)" ]; then
-        echo_info 'grub-mkconfig -o /boot/grub/grub.cfg'
+        echo_info 'grub-mkconfig -o /boot/grub/grub.cfg\n'
         grub-mkconfig -o /boot/grub/grub.cfg
 
     elif [ -x "$(command -v grub2-mkconfig)" ]; then
         if [ -x "$(command -v zypper)" ]; then
-            echo_info 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+            echo_info 'grub2-mkconfig -o /boot/grub2/grub.cfg\n'
             grub2-mkconfig -o /boot/grub2/grub.cfg
 
         elif [ -x "$(command -v dnf)" ]; then
-            echo_info 'grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
+            echo_info 'grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg\n'
             grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
         fi
     fi

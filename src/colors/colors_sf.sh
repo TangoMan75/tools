@@ -10,14 +10,18 @@
 # */
 
 #/**
-# * TangoMan Symfony Colors
+# * TangoMan Colors
 # *
 # * A semantic set of colors for shell scripts inspired by Bootstrap and Symfony
 # *
 # * @author  "Matthias Morin" <mat@tangoman.io>
 # * @link    https://github.com/TangoMan75/tools
-# * @version 0.1.0-sf
+# * @version 0.1.0
 # */
+
+#--------------------------------------------------
+# Colors global variables
+#--------------------------------------------------
 
 # shellcheck disable=SC2034
 {
@@ -25,97 +29,98 @@
     ALERT_PRIMARY='\033[104;37m'; ALERT_SECONDARY='\033[45;37m'; ALERT_SUCCESS='\033[42;30m'; ALERT_DANGER='\033[41;37m'; ALERT_WARNING='\033[43;30m'; ALERT_INFO='\033[44;37m'; ALERT_LIGHT='\033[47;90m'; ALERT_DARK='\033[40;37m';
 }
 
+#--------------------------------------------------
+# A semantic set of colors functions
+#--------------------------------------------------
+
+# Synopsys: echo_* [string] (indentation) (padding)
+
 ## Print primary (bright white text)
 echo_primary() {
-    printf "%b%b${EOL}" "${PRIMARY}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${PRIMARY}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print secondary (bright blue text)
 echo_secondary() {
-    printf "%b%b${EOL}" "${SECONDARY}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${SECONDARY}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print success (bright green text)
 echo_success() {
-    printf "%b%b${EOL}" "${SUCCESS}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${SUCCESS}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print danger (red text)
 echo_danger() {
-    printf "%b%b${EOL}" "${DANGER}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${DANGER}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print warning (orange text)
 echo_warning() {
-    printf "%b%b${EOL}" "${WARNING}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${WARNING}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print info (bright purple text)
 echo_info() {
-    printf "%b%b${EOL}" "${INFO}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${INFO}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print light (black text over white background)
 echo_light() {
-    printf "%b%b${EOL}" "${LIGHT}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${LIGHT}" "$3" "$1" "${DEFAULT}"
 }
 
 ## Print dark (white text over black background)
 echo_dark() {
-    printf "%b%b${EOL}" "${DARK}" "${*}"
+    if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi
+    printf '%*b%b%-*b%b' "$2" '' "${DARK}" "$3" "$1" "${DEFAULT}"
 }
 
-## Print label (green text with optional padding, no carriage return)
-echo_label() {
-    if [ $# -eq 2 ]; then
-        printf "%b%-${1}s ${DEFAULT}" "${SUCCESS}" "$2";
-    else
-        printf "%b%b ${DEFAULT}" "${SUCCESS}" "${*}"
-    fi
-}
-
-## Print error (red text, prefixed 'error:')
-echo_error() {
-    printf "%berror: %b${EOL}" "${DANGER}" "${*}";
-}
+# Synopsys: alert_* [string]
 
 ## Print primary alert (white text over bright blue background)
 alert_primary() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_PRIMARY}" '' "${ALERT_PRIMARY}" "${*}" "${ALERT_PRIMARY}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_PRIMARY}" '' "${ALERT_PRIMARY}" "$1" "${ALERT_PRIMARY}" '';
 }
 
 ## Print secondary alert (white text over bright purple background)
 alert_secondary() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SECONDARY}" '' "${ALERT_SECONDARY}" "${*}" "${ALERT_SECONDARY}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SECONDARY}" '' "${ALERT_SECONDARY}" "$1" "${ALERT_SECONDARY}" '';
 }
 
 ## Print success alert (black text over bright green background)
 alert_success() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SUCCESS}" '' "${ALERT_SUCCESS}" "[OK] ${*}" "${ALERT_SUCCESS}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SUCCESS}" '' "${ALERT_SUCCESS}" "$1" "${ALERT_SUCCESS}" '';
 }
 
 ## Print danger alert (white text over bright red background)
 alert_danger() {
-    printf "${EOL}%b %-63s${EOL}%b %-63s${EOL}%b %-63s${EOL}\n" "${ALERT_DANGER}" '!' "${ALERT_DANGER}" "! [ERROR] ${*}" "${ALERT_DANGER}" '!'
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_DANGER}" '' "${ALERT_DANGER}" "$1" "${ALERT_DANGER}" '';
 }
 
-## Print warning alert (white text over bright orange background)
+## Print warning alert (black text over bright orange background)
 alert_warning() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_WARNING}" '' "${ALERT_WARNING}" "[WARNING] ${*}" "${ALERT_WARNING}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_WARNING}" '' "${ALERT_WARNING}" "$1" "${ALERT_WARNING}" '';
 }
 
 ## Print info alert (white text over bright blue background)
 alert_info() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_INFO}" '' "${ALERT_INFO}" "[INFO] ${*}" "${ALERT_INFO}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_INFO}" '' "${ALERT_INFO}" "$1" "${ALERT_INFO}" '';
 }
 
-## Print light alert (black text over white background)
+## Print light alert (grey text over white background)
 alert_light() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_LIGHT}" '' "${ALERT_LIGHT}" "${*}" "${ALERT_LIGHT}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_LIGHT}" '' "${ALERT_LIGHT}" "$1" "${ALERT_LIGHT}" '';
 }
 
 ## Print dark alert (white text over black background)
 alert_dark() {
-    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_DARK}" '' "${ALERT_DARK}" "${*}" "${ALERT_DARK}" ''
+    printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_DARK}" '' "${ALERT_DARK}" "$1" "${ALERT_DARK}" '';
 }
-

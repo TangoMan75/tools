@@ -28,126 +28,126 @@ CURDIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 check_install() {
     alert_primary 'Check Install'
 
-    echo_label 17 'ansible'
+    echo_success 'ansible' 1 18
     is_installed 'ansible'
 
-    echo_label 17 'apache2'
+    echo_success 'apache2' 1 18
     is_installed 'apache2'
 
-    echo_label 17 'aws'
+    echo_success 'aws' 1 18
     is_installed 'aws'
 
-    echo_label 17 'bundle'
+    echo_success 'bundle' 1 18
     is_installed 'bundle'
 
-    echo_label 17 'chef'
+    echo_success 'chef' 1 18
     is_installed 'chef'
 
-    echo_label 17 'curl'
+    echo_success 'curl' 1 18
     is_installed 'curl'
 
-    echo_label 17 'docker'
+    echo_success 'docker' 1 18
     is_installed 'docker'
 
-    echo_label 17 'docker-compose'
+    echo_success 'docker-compose' 1 18
     is_installed 'docker-compose'
 
-    echo_label 17 'gawk'
+    echo_success 'gawk' 1 18
     is_installed 'gawk'
 
-    echo_label 17 'gem'
+    echo_success 'gem' 1 18
     is_installed 'gem'
 
-    echo_label 17 'git'
+    echo_success 'git' 1 18
     is_installed 'git'
 
-    echo_label 17 'iptables'
+    echo_success 'iptables' 1 18
     is_installed 'iptables'
 
-    echo_label 17 'make'
+    echo_success 'make' 1 18
     is_installed 'make'
 
-    echo_label 17 'mokutil'
+    echo_success 'mokutil' 1 18
     is_installed 'mokutil'
 
-    echo_label 17 'mysql'
+    echo_success 'mysql' 1 18
     is_installed 'mysql'
 
-    echo_label 17 'nfs-common'
+    echo_success 'nfs-common' 1 18
     is_installed 'nfs-common'
 
-    echo_label 17 'nfs-kernel-server'
+    echo_success 'nfs-kernel-server' 1 18
     is_installed 'nfs-kernel-server'
 
-    echo_label 17 'netstat'
+    echo_success 'netstat' 1 18
     is_installed 'netstat'
 
-    echo_label 17 'nginx'
+    echo_success 'nginx' 1 18
     is_installed 'nginx'
 
-    echo_label 17 'nmap'
+    echo_success 'nmap' 1 18
     is_installed 'nmap'
 
-    echo_label 17 'nodejs'
+    echo_success 'nodejs' 1 18
     is_installed 'nodejs'
 
-    echo_label 17 'npm'
+    echo_success 'npm' 1 18
     is_installed 'npm'
 
-    echo_label 17 'openssl'
+    echo_success 'openssl' 1 18
     is_installed 'openssl'
 
-    echo_label 17 'perl'
+    echo_success 'perl' 1 18
     is_installed 'perl'
 
-    echo_label 17 'psql'
+    echo_success 'psql' 1 18
     is_installed 'psql'
 
-    echo_label 17 'php'
+    echo_success 'php' 1 18
     is_installed 'php'
 
-    echo_label 17 'pip'
+    echo_success 'pip' 1 18
     is_installed 'pip'
 
-    echo_label 17 'pip3'
+    echo_success 'pip3' 1 18
     is_installed 'pip3'
 
-    echo_label 17 'python'
+    echo_success 'python' 1 18
     is_installed 'python'
 
-    echo_label 17 'python3'
+    echo_success 'python3' 1 18
     is_installed 'python3'
 
-    echo_label 17 'ruby'
+    echo_success 'ruby' 1 18
     is_installed 'ruby'
 
-    echo_label 17 'rvm'
+    echo_success 'rvm' 1 18
     is_installed 'rvm'
 
-    echo_label 17 'shellcheck'
+    echo_success 'shellcheck' 1 18
     is_installed 'shellcheck'
 
-    echo_label 17 'sqlite3'
+    echo_success 'sqlite3' 1 18
     is_installed 'sqlite3'
 
-    echo_label 17 'ufw'
+    echo_success 'ufw' 1 18
     is_installed 'ufw'
 
-    echo_label 17 'vagrant'
+    echo_success 'vagrant' 1 18
     is_installed 'vagrant'
 
-    echo_label 17 'vboxmanage'
+    echo_success 'vboxmanage' 1 18
     is_installed 'vboxmanage'
 
-    echo_label 17 'wine'
+    echo_success 'wine' 1 18
     is_installed 'wine'
 
-    echo_label 17 'wget'
+    echo_success 'wget' 1 18
     is_installed 'wget'
 
-    echo_label 17 'yarn'
+    echo_success 'yarn' 1 18
     is_installed 'yarn'
 
-    echo_label 17 'zsh'
+    echo_success 'zsh' 1 18
     is_installed 'zsh'
 }

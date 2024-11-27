@@ -37,12 +37,12 @@ set_parameter() {
                 s) SEPARATOR="$(echo "${OPTARG}"|sed -E 's/^[[:space:]]*//'|sed -E 's/[[:space:]]*$//'|tr -d "\t")";;
                 n) SPACE='';;
                 h) echo_warning 'set_parameter'
-                    echo_label 'description:'; echo_primary 'Return parameter value from given yml file'
-                   echo_label 'usage'; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)'
+                   echo_success 'description:' 2 14; echo_primary 'Return parameter value from given yml file\n'
+                   echo_success 'usage' 2 14; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)\n'
                     return 0;;
-                :) echo_error "\"${OPTARG}\" requires value"
+                :) echo_danger "error: \"${OPTARG}\" requires value\n"
                     return 1;;
-                \?) echo_error "invalid option \"${OPTARG}\""
+                \?) echo_danger "error: invalid option \"${OPTARG}\"\n"
                     return 1;;
             esac
         done
@@ -56,23 +56,23 @@ set_parameter() {
     done
 
     if [ "${#ARGUMENTS[@]}" -eq 0 ]; then
-        echo_error 'some mandatory parameter is missing'
-        echo_label 'usage'; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)'
+        echo_danger 'error: some mandatory parameter is missing\n' 2
+        echo_success 'usage' 2 7; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)\n'
         return 1
     fi
 
     if [ "${#ARGUMENTS[@]}" -gt 2 ]; then
-        echo_error "too many arguments (${#ARGUMENTS[@]})"
-        echo_label 'usage'; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)'
+        echo_danger "error: too many arguments (${#ARGUMENTS[@]})\n" 2
+        echo_success 'usage' 2 7; echo_primary 'set_parameter [parameter] [value] -f [file_path] -s [separator] -n (no_space) -h (help)\n'
         return 1
     fi
 
     if [ ! -f "${FILE_PATH}" ]; then
         if [ ! -f "${FILE_PATH}.dist" ]; then
-            echo_error "file not found: ${FILE_PATH}"
+            echo_danger "error: file not found: ${FILE_PATH}\n"
             return 1
         else
-            echo_info "cp \"${FILE_PATH}.dist\" \"${FILE_PATH}\""
+            echo_info "cp \"${FILE_PATH}.dist\" \"${FILE_PATH}\"\n"
             cp "${FILE_PATH}.dist" "${FILE_PATH}"
         fi
     fi
@@ -81,7 +81,7 @@ set_parameter() {
 
     # shellcheck disable=SC2143
     if [ -z "$(< "${FILE_PATH}" grep -v "#" | grep "${PARAMETER}${SEPARATOR}")" ]; then
-        echo_error "invalid parameter \"${PARAMETER}${SEPARATOR}\""
+        echo_danger "error: invalid parameter \"${PARAMETER}${SEPARATOR}\"\n"
         return 1
     fi
 

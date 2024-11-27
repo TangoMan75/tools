@@ -22,32 +22,27 @@ CURDIR=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
 # shellcheck source=/dev/null
 . "${CURDIR}/colors.sh"
 
-PADDING=9
-
 function demo_echo() {
-    echo_primary   'This is primary text   (97m)'
-    echo_secondary 'This is secondary text (94m)'
-    echo_success   'This is a success      (32m)'
-    echo_danger    'This is a danger       (31m)'
-    echo_warning   'This is a warning      (33m)'
-    echo_info      'This is an info        (95m)'
-    echo_light     'This is light          (47;90m)'
-    echo_dark      'This is dark           (40;37m)'
-    echo
-    echo_label     "${PADDING}" 'label (32m):'; echo_primary 'This is a label'
-    echo_error     'This is an error (31m)'
+    echo_primary   'This is primary text'   2 24; echo 'primary'
+    echo_secondary 'This is secondary text' 2 24; echo 'secondary'
+    echo_success   'This is a success'      2 24; echo 'success'
+    echo_danger    'This is a danger'       2 24; echo 'danger'
+    echo_warning   'This is a warning'      2 24; echo 'warning'
+    echo_info      'This is an info'        2 24; echo 'info'
+    echo_light     'This is light'          2 24; echo 'light'
+    echo_dark      'This is dark'           2 24; echo 'dark'
     echo
 }
 
 function demo_alert() {
-    alert_primary   'This is a primary alert   (1;104;97m)'
-    alert_secondary 'This is a secondary alert (1;45;97m)'
-    alert_success   'This is a success alert   (1;42;97m)'
-    alert_danger    'This is a danger alert    (1;41;97m)'
-    alert_warning   'This is a warning alert   (1;43;97m)'
-    alert_info      'This is a info alert      (1;44;97m)'
-    alert_light     'This is a light alert     (1;47;90m)'
-    alert_dark      'This is a dark alert      (1;40;37m)'
+    alert_primary   'This is a primary alert'
+    alert_secondary 'This is a secondary alert'
+    alert_success   'This is a success alert'
+    alert_danger    'This is a danger alert'
+    alert_warning   'This is a warning alert'
+    alert_info      'This is a info alert'
+    alert_light     'This is a light alert'
+    alert_dark      'This is a dark alert'
 }
 
 demo_echo

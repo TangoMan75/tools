@@ -24,7 +24,7 @@ set -e
 ## Return staged bash files
 get_staged_bash_files() {
     if [ ! -x "$(command -v git)" ]; then
-        echo_error "\"$(basename "${0}")\" requires git, try: 'sudo apt-get install -y git'\n"
+        echo_danger "error: \"$(basename "${0}")\" requires git, try: 'sudo apt-get install -y git'\n"
         exit 1
     fi
 
@@ -50,7 +50,7 @@ get_staged_bash_files() {
 ## Return staged php files
 get_staged_php_files() {
     if [ ! -x "$(command -v git)" ]; then
-        echo_error "\"$(basename "${0}")\" requires git, try: 'sudo apt-get install -y git'\n"
+        echo_danger "error: \"$(basename "${0}")\" requires git, try: 'sudo apt-get install -y git'\n"
         exit 1
     fi
 
@@ -114,7 +114,7 @@ EOF
             curl -sSL -o "./tests/bash_unit" https://raw.githubusercontent.com/pgrange/bash_unit/master/bash_unit
 
         else
-            echo_error "could not find \"bash_unit\" executable, please install manually\n"
+            echo_danger "error: could not find \"bash_unit\" executable, please install manually\n"
             exit 1
         fi
     fi
@@ -128,7 +128,7 @@ EOF
 ## Sniff errors with linter
 lint() {
     if [ ! -x "$(command -v shellcheck)" ]; then
-        echo_error "\"$(basename "${0}")\" requires shellcheck, try: 'sudo apt-get install -y shellcheck'\n"
+        echo_danger "error: \"$(basename "${0}")\" requires shellcheck, try: 'sudo apt-get install -y shellcheck'\n"
         exit 1
     fi
 
@@ -149,31 +149,38 @@ tests() {
 }
 
 #--------------------------------------------------
-# copy/paste here TangoMan helper functions
-# (like a nice set of semantic colors)
+# Colors global variables
 #--------------------------------------------------
 
-# version v7.0.0-c
-echo_primary()   { printf '%b%b\033[0m' '\033[97m'    "${*}"; }
-echo_secondary() { printf '%b%b\033[0m' '\033[94m'    "${*}"; }
-echo_success()   { printf '%b%b\033[0m' '\033[32m'    "${*}"; }
-echo_danger()    { printf '%b%b\033[0m' '\033[31m'    "${*}"; }
-echo_warning()   { printf '%b%b\033[0m' '\033[33m'    "${*}"; }
-echo_info()      { printf '%b%b\033[0m' '\033[95m'    "${*}"; }
-echo_light()     { printf '%b%b\033[0m' '\033[47;90m' "${*}"; }
-echo_dark()      { printf '%b%b\033[0m' '\033[40;37m' "${*}"; }
+# shellcheck disable=SC2034
+{
+    PRIMARY='\033[97m'; SECONDARY='\033[94m'; SUCCESS='\033[32m'; DANGER='\033[31m'; WARNING='\033[33m'; INFO='\033[95m'; LIGHT='\033[47;90m'; DARK='\033[40;37m'; DEFAULT='\033[0m'; EOL='\033[0m\n';
+    ALERT_PRIMARY='\033[1;104;97m'; ALERT_SECONDARY='\033[1;45;97m'; ALERT_SUCCESS='\033[1;42;97m'; ALERT_DANGER='\033[1;41;97m'; ALERT_WARNING='\033[1;43;97m'; ALERT_INFO='\033[1;44;97m'; ALERT_LIGHT='\033[1;47;90m'; ALERT_DARK='\033[1;40;37m';
+}
 
-echo_label()     { if [ $# -eq 2 ]; then printf "%b%-${1}s \033[0m" '\033[32m' "$2"; else printf "%b%b \033[0m" '\033[32m' "${*}"; fi }
-echo_error()     { printf '%berror:\t%b\033[0m' '\033[31m' "${*}"; }
+#--------------------------------------------------
+# A semantic set of colors functions
+#--------------------------------------------------
 
-alert_primary()   { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;104;97m' '' '\033[1;104;97m' "${*}" '\033[1;104;97m' ''; }
-alert_secondary() { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;45;97m'  '' '\033[1;45;97m'  "${*}" '\033[1;45;97m'  ''; }
-alert_success()   { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;42;97m'  '' '\033[1;42;97m'  "${*}" '\033[1;42;97m'  ''; }
-alert_danger()    { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;41;97m'  '' '\033[1;41;97m'  "${*}" '\033[1;41;97m'  ''; }
-alert_warning()   { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;43;97m'  '' '\033[1;43;97m'  "${*}" '\033[1;43;97m'  ''; }
-alert_info()      { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;44;97m'  '' '\033[1;44;97m'  "${*}" '\033[1;44;97m'  ''; }
-alert_light()     { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;47;90m'  '' '\033[1;47;90m'  "${*}" '\033[1;47;90m'  ''; }
-alert_dark()      { printf '\033[0m\n%b%64s\033[0m\n%b %-63s\033[0m\n%b%64s\033[0m\n\n' '\033[1;40;37m'  '' '\033[1;40;37m'  "${*}" '\033[1;40;37m'  ''; }
+# Synopsys: echo_* [string] (indentation) (padding)
+echo_primary()   { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${PRIMARY}"    "$3" "$1" "${DEFAULT}"; }
+echo_secondary() { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${SECONDARY}"  "$3" "$1" "${DEFAULT}"; }
+echo_success()   { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${SUCCESS}"    "$3" "$1" "${DEFAULT}"; }
+echo_danger()    { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${DANGER}"     "$3" "$1" "${DEFAULT}"; }
+echo_warning()   { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${WARNING}"    "$3" "$1" "${DEFAULT}"; }
+echo_info()      { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${INFO}"       "$3" "$1" "${DEFAULT}"; }
+echo_light()     { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${LIGHT}"      "$3" "$1" "${DEFAULT}"; }
+echo_dark()      { if [ $# -eq 1 ]; then set -- "$1" 0 0; elif [ $# -eq 2 ]; then set -- "$1" "$2" 0; fi; printf "%*b%b%-*b%b" "$2" '' "${DARK}"       "$3" "$1" "${DEFAULT}"; }
+
+# Synopsys: alert_* [string]
+alert_primary()   { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_PRIMARY}"   '' "${ALERT_PRIMARY}"   "$1" "${ALERT_PRIMARY}"   ''; }
+alert_secondary() { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SECONDARY}" '' "${ALERT_SECONDARY}" "$1" "${ALERT_SECONDARY}" ''; }
+alert_success()   { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_SUCCESS}"   '' "${ALERT_SUCCESS}"   "$1" "${ALERT_SUCCESS}"   ''; }
+alert_danger()    { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_DANGER}"    '' "${ALERT_DANGER}"    "$1" "${ALERT_DANGER}"    ''; }
+alert_warning()   { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_WARNING}"   '' "${ALERT_WARNING}"   "$1" "${ALERT_WARNING}"   ''; }
+alert_info()      { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_INFO}"      '' "${ALERT_INFO}"      "$1" "${ALERT_INFO}"      ''; }
+alert_light()     { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_LIGHT}"     '' "${ALERT_LIGHT}"     "$1" "${ALERT_LIGHT}"     ''; }
+alert_dark()      { printf "${EOL}%b%64s${EOL}%b %-63s${EOL}%b%64s${EOL}\n" "${ALERT_DARK}"      '' "${ALERT_DARK}"      "$1" "${ALERT_DARK}"      ''; }
 
 #--------------------------------------------------
 # You do not need to worry about anything that's

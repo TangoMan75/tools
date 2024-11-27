@@ -34,12 +34,12 @@ get_parameter() {
                 f) FILE_PATH="${OPTARG}";;
                 s) SEPARATOR="$(echo "${OPTARG}"|sed -E 's/^[[:space:]]*//'|sed -E 's/[[:space:]]*$//'|tr -d "\t")";;
                 h) echo_warning 'get_parameter'
-                    echo_label 'description:'; echo_primary 'Return parameter value from given yml file'
-                    echo_label 'usage'; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)'
+                    echo_success 'description:' 2 14; echo_primary 'Return parameter value from given yml file\n'
+                    echo_success 'usage' 2 14; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)\n'
                     return 0;;
-                :) echo_error "\"${OPTARG}\" requires value"
+                :) echo_danger "error: \"${OPTARG}\" requires value\n"
                     return 1;;
-                \?) echo_error "invalid option \"${OPTARG}\""
+                \?) echo_danger "error: invalid option \"${OPTARG}\"\n"
                     return 1;;
             esac
         done
@@ -53,20 +53,20 @@ get_parameter() {
     done
 
     if [ "${#ARGUMENTS[@]}" -eq 0 ]; then
-        echo_error 'some mandatory parameter is missing'
-        echo_label 'usage'; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)'
+        echo_danger 'error: some mandatory parameter is missing\n' 2
+        echo_success 'usage' 2 7; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)\n'
         return 1
     fi
 
     if [ "${#ARGUMENTS[@]}" -gt 1 ]; then
-        echo_error "too many arguments (${#ARGUMENTS[@]})"
-        echo_label 'usage'; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)'
+        echo_danger "error: too many arguments (${#ARGUMENTS[@]})\n" 2
+        echo_success 'usage' 2 7; echo_primary 'get_parameter [parameter] -f [file_path] -s [separator] -h (help)\n'
         return 1
     fi
 
     # check file exists
     if [ ! -f "${FILE_PATH}" ]; then
-        echo_error "Could not find \"${FILE_PATH}\""
+        echo_danger "error: Could not find \"${FILE_PATH}\"\n"
         return 1
     fi
 

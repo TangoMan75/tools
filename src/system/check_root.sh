@@ -21,7 +21,7 @@
 ## Throws error when user doesn't own root privileges
 function check_root() {
     if [ "$(id | awk '{print $1}')" != 'uid=0(root)' ];then
-        echo_error "user \"${USER}\" does not own root privileges."
+        echo_danger "error: user \"${USER}\" does not own root privileges.\n"
 
         return 1
     fi

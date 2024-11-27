@@ -34,12 +34,12 @@ function set_hosts() {
                 d) DELETE=true;;
                 i) IP_ADDRESS="${OPTARG}";;
                 h) echo_warning 'set_hosts'
-                    echo_label 'description'; echo_primary 'Create / delete hosts in /etc/hosts'
-                    echo_label 'usage'; echo_primary 'set-hosts [hosts] -i (ip) -d (delete) -h (help)'
+                    echo_succes 'description' 2 14; echo_primary 'Create / delete hosts in /etc/hosts\n'
+                    echo_succes 'usage' 2 14; echo_primary 'set-hosts [hosts] -i (ip) -d (delete) -h (help)\n'
                     return 0;;
-                :) echo_error "\"${OPTARG}\" requires value"
+                :) echo_danger "error: \"${OPTARG}\" requires value\n"
                     return 1;;
-                \?) echo_error "invalid option \"${OPTARG}\""
+                \?) echo_danger "error: invalid option \"${OPTARG}\"\n"
                     return 1;;
             esac
         done
@@ -53,8 +53,8 @@ function set_hosts() {
     done
 
     if [ "${#ARGUMENTS[@]}" -eq 0 ]; then
-        echo_error 'some mandatory parameter is missing'
-        echo_label 'usage'; echo_primary 'set-hosts [hosts] -i (ip) -d (delete) -h (help)'
+        echo_danger 'error: some mandatory parameter is missing\n' 2
+        echo_success 'usage' 2 7; echo_primary 'set-hosts [hosts] -i (ip) -d (delete) -h (help)\n'
         return 1
     fi
 
@@ -67,14 +67,14 @@ function set_hosts() {
             cat /etc/hosts | grep -vP "\s+${HOST_NAME}$" | sudo tee /etc/hosts >/dev/null
 
             if [ "${DELETE}" = true ];then
-                echo_danger "Deleting host: \"${IP_ADDRESS}    ${HOST_NAME}\""
+                echo_danger "Deleting host: \"${IP_ADDRESS}    ${HOST_NAME}\"\n"
             else
                 echo_warning "Updating host: \"${IP_ADDRESS}    ${HOST_NAME}\""
                 sudo /bin/sh -c "echo \"${IP_ADDRESS}    ${HOST_NAME}\">> /etc/hosts"
             fi
         else
             if [ "${DELETE}" = true ];then
-                echo_error "\"${HOST_NAME}\" not found"
+                echo_danger "error: \"${HOST_NAME}\" not found\n"
             else
                 echo_success "Creating host: \"${IP_ADDRESS}    ${HOST_NAME}\""
                 sudo /bin/sh -c "echo \"${IP_ADDRESS}    ${HOST_NAME}\">> /etc/hosts"

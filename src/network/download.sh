@@ -27,7 +27,7 @@ function download() {
     elif [ ! -x "$(command -v wget)" ]; then
         DOWNLOADER="wget"
     else
-        echo_error "\"$(basename "${0}")\" requires curl or wget, try: 'sudo apt-get install -y curl'"
+        echo_danger "error: \"$(basename "${0}")\" requires curl or wget, try: 'sudo apt-get install -y curl'\n"
 
         return 1
     fi
@@ -35,12 +35,12 @@ function download() {
     case ${DOWNLOADER} in
         'curl')
             # -s sient -S show errors -L follow redirects
-            echo_info "curl -sSL \"$1\""
+            echo_info "curl -sSL \"$1\"\n"
             curl -sSL "$1"
             ;;
         'wget')
             # -q sient
-            echo_info "wget -q \"$1\""
+            echo_info "wget -q \"$1\"\n"
             wget -q "$1"
             ;;
     esac

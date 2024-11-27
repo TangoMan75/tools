@@ -21,7 +21,7 @@
 ## Get repository latest tag from github
 function get_latest_tag() {
     if [ ! -x "$(command -v curl)" ]; then
-        echo_error "\"${FUNCNAME[0]}\" requires curl, try: 'sudo apt-get install -y curl'"
+        echo_danger "error: \"${FUNCNAME[0]}\" requires curl, try: 'sudo apt-get install -y curl'\n"
 
         return 1
     fi
@@ -32,21 +32,21 @@ function get_latest_tag() {
     while getopts :h OPTION; do
         case "${OPTION}" in
             h|*) echo_warning "${FUNCNAME[0]}";
-                echo_label 16 'description:'; echo_primary 'Get repository latest tag'
-                echo_label 16 'usage:'; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)"
+                echo_success 'description:' 2 14; echo_primary 'Get repository latest tag\n'
+                echo_success 'usage:' 2 14; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)\n"
                 return 0;;
         esac
     done
 
     if [ "$#" -lt 1 ]; then
-        echo_error 'some mandatory parameter is missing'
-        echo_label 8 'usage:'; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)"
+        echo_danger 'error: some mandatory parameter is missing'
+        echo_success 'usage:' 2 7; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)\n"
         return 1
     fi
 
     if [ "$#" -gt 1 ]; then
-        echo_error "too many arguments ($#)"
-        echo_label 8 'usage:'; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)"
+        echo_danger "error: too many arguments ($#)\n"
+        echo_success 'usage:' 2 7; echo_primary "${FUNCNAME[0]} [owner/repository] -h (help)\n"
         return 1
     fi
 
